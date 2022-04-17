@@ -1,0 +1,217 @@
+﻿@model IEnumerable<AppInventarioWeb.Models.Producto>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" ng-controller="ProductosController">
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#modal-default">
+                                <i class="fas fa-plus"></i> Nuevo
+                            </button>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#modal-default">
+                                <i class="fas fa-upload"></i> Carga masiva
+                            </button>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Proveedor</th>
+                                        <th>Nombre</th>
+                                        <th>Costo</th>
+                                        <th>Precio</th>
+                                        <th>Unidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Proveedor.Nombre)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Nombre)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Costo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Precio)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.UnidadNumero)
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Proveedor</th>
+                                        <th>Nombre</th>
+                                        <th>Costo</th>
+                                        <th>Precio</th>
+                                        <th>Unidad</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+
+
+    <form class="needs-validation" novalidate>
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Nuevo elemento</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label for="validationCustom01">Nombre</label>
+                                <input type="text" class="form-control" id="validationCustom01" required maxlength="64">
+                                <div class="valid-feedback">
+                                    Buen trabajo!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Porfavor ingresa un nombre valido.
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="validationCustom02">Costo</label>
+                                <input type="number" class="form-control" id="validationCustom02" required min="1" max="9999" step="0.1">
+                                <div class="valid-feedback">
+                                    Buen trabajo!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Porfavor ingresa un costo valido.
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="validationCustom03">Precio</label>
+                                <input type="number" class="form-control" id="validationCustom03" required min="1" max="9999" step="0.1">
+                                <div class="valid-feedback">
+                                    Buen trabajo!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Porfavor ingresa un precio valido.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label for="validationCustom04">Proveedor</label>
+                                <select class="form-control select2" style="width: 100%;" id="validationCustom04">
+                                    <option ng-repeat="proveedor in proveedores" value="{{proveedor.ProveedorId}}">
+                                        {{proveedor.Nombre}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please provide a valid city.
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustom05">Cantidad</label>
+                                <input type="number" class="form-control" id="validationCustom05" required min="1" max="9999" step="0.1">
+                                <div class="valid-feedback">
+                                    Buen trabajo!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Porfavor ingresa un costo valido.
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="validationCustom06">Unidad</label>
+                                <select class="form-control select2" style="width: 100%;" id="validationCustom06">
+                                    <option>Lt.</option>
+                                    <option>Ml.</option>
+                                    <option>Gr.</option>
+                                    <option>Kg.</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please provide a valid city.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label for="validationCustom07">Almacen</label>
+                                <select class="form-control select2" style="width: 100%;" id="validationCustom07">
+                                    <option value="1">Almacen 1</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please provide a valid city.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="validationCustom08">Slot</label>
+                                <select class="form-control select2" style="width: 100%;" id="validationCustom08">
+                                    <option>Almacen 1 / Slot 1</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please provide a valid city.
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </form>
+    <!-- /.modal -->
+
+</div>
+<!-- /.content-wrapper -->
+
+<script src="~/Scripts/Controllers/ProductosController.js"></script>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
