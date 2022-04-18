@@ -77,7 +77,7 @@
 
 
 
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" novalidate ng-submit="nuevaAlta();">
         <div class="modal fade" id="modal-default">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -91,7 +91,8 @@
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label for="validationCustom01">Nombre</label>
-                                <input type="text" class="form-control" id="validationCustom01" required maxlength="64">
+                                <input type="text" class="form-control" id="validationCustom01" required maxlength="64" 
+                                       ng-model="producto.nombre">
                                 <div class="valid-feedback">
                                     Buen trabajo!
                                 </div>
@@ -101,7 +102,8 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="validationCustom02">Costo</label>
-                                <input type="number" class="form-control" id="validationCustom02" required min="1" max="9999" step="0.1">
+                                <input type="number" class="form-control" id="validationCustom02" required min="1" max="9999" step="0.1" 
+                                       ng-model="producto.costo">
                                 <div class="valid-feedback">
                                     Buen trabajo!
                                 </div>
@@ -111,7 +113,8 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="validationCustom03">Precio</label>
-                                <input type="number" class="form-control" id="validationCustom03" required min="1" max="9999" step="0.1">
+                                <input type="number" class="form-control" id="validationCustom03" required min="1" max="9999" step="0.1" 
+                                       ng-model="producto.precio">
                                 <div class="valid-feedback">
                                     Buen trabajo!
                                 </div>
@@ -123,55 +126,75 @@
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label for="validationCustom04">Proveedor</label>
-                                <select class="form-control select2" style="width: 100%;" id="validationCustom04">
+                                <select class="form-control" id="validationCustom04" required>
+                                    <option value="">Seleccione...</option>
                                     <option ng-repeat="proveedor in proveedores" value="{{proveedor.ProveedorId}}">
                                         {{proveedor.Nombre}}
                                     </option>
                                 </select>
-                                <div class="invalid-feedback">
-                                    Please provide a valid city.
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="validationCustom05">Cantidad</label>
-                                <input type="number" class="form-control" id="validationCustom05" required min="1" max="9999" step="0.1">
                                 <div class="valid-feedback">
                                     Buen trabajo!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Porfavor ingresa un costo valido.
+                                    Porfavor ingresa un proveedor valido.
                                 </div>
                             </div>
-                            <div class="col-md-2 mb-3">
-                                <label for="validationCustom06">Unidad</label>
-                                <select class="form-control select2" style="width: 100%;" id="validationCustom06">
-                                    <option>Lt.</option>
-                                    <option>Ml.</option>
-                                    <option>Gr.</option>
-                                    <option>Kg.</option>
-                                </select>
+                            <div class="col-md-3 mb-3">
+                                <label for="validationCustom05">Cantidad</label>
+                                <input type="number" class="form-control" id="validationCustom05" required min="1" max="9999" step="0.1" 
+                                       ng-model="producto.cantidad">
+                                <div class="valid-feedback">
+                                    Buen trabajo!
+                                </div>
                                 <div class="invalid-feedback">
-                                    Please provide a valid city.
+                                    Porfavor ingresa una cantidad valida.
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="validationCustom06">Unidad</label>
+                                <select class="form-control" id="validationCustom06" required
+                                        ng-model="producto.unidadId">
+                                    <option value="">Seleccione...</option>
+                                    <option value="1">Lt.</option>
+                                    <option value="2">Ml.</option>
+                                    <option value="3">Gr.</option>
+                                    <option value="4">Kg.</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Buen trabajo!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Porfavor ingresa una unidad valida.
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label for="validationCustom07">Almacen</label>
-                                <select class="form-control select2" style="width: 100%;" id="validationCustom07">
+                                <select class="form-control" id="validationCustom07" required
+                                        ng-model="producto.almacenId">
+                                    <option value="">Seleccione...</option>
                                     <option value="1">Almacen 1</option>
                                 </select>
+                                <div class="valid-feedback">
+                                    Buen trabajo!
+                                </div>
                                 <div class="invalid-feedback">
-                                    Please provide a valid city.
+                                    Porfavor ingresa un almacen valido.
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="validationCustom08">Slot</label>
-                                <select class="form-control select2" style="width: 100%;" id="validationCustom08">
-                                    <option>Almacen 1 / Slot 1</option>
+                                <select class="form-control" id="validationCustom08" required
+                                        ng-model="producto.slotId">
+                                    <option value="">Seleccione...</option>
+                                    <option value="1">Almacen 1 / Slot 1</option>
                                 </select>
+                                <div class="valid-feedback">
+                                    Buen trabajo!
+                                </div>
                                 <div class="invalid-feedback">
-                                    Please provide a valid city.
+                                    Porfavor ingresa un slot valido.
                                 </div>
                             </div>
                         </div>
