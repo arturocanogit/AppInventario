@@ -16,11 +16,17 @@ namespace AppInventarioWeb.Models
         public int ProveedorId { get; set; }
         [Key, Column(Order = 2)]
         public int ProductoId { get; set; }
+        [Required]
         public string Nombre { get; set; }
+        [Required]
         public double Costo { get; set; }
+        [Required]
         public double Precio { get; set; }
-        public int UnidadNumero { get; set; }
+        [Required]
+        public int UnidadId { get; set; }
+        [Required]
         public string UnidadLetra { get; set; }
         public virtual Proveedor Proveedor { get; set; }
+        public virtual Unidad Unidad { get; set; }
     }
 }

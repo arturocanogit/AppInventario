@@ -18,7 +18,8 @@ namespace AppInventarioWeb.Controllers
         // GET: Productos
         public ActionResult Index()
         {
-            return View(db.Productos.ToList());
+            var productos = db.Productos.Include(p => p.Proveedor);
+            return View(productos.ToList());
         }
 
         // GET: Productos/Details/5
@@ -39,6 +40,7 @@ namespace AppInventarioWeb.Controllers
         // GET: Productos/Create
         public ActionResult Create()
         {
+            ViewBag.NegocioId = new SelectList(db.Proveedores, "NegocioId", "Nombre");
             return View();
         }
 
@@ -46,16 +48,26 @@ namespace AppInventarioWeb.Controllers
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductoId,Nombre")] Producto producto)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "NegocioId,ProveedorId,ProductoId,Nombre,Costo,Precio,UnidadNumero,UnidadLetra")] Producto producto)
         {
+            const int negocioId = 1;
+            producto.NegocioId = negocioId;
+
             if (ModelState.IsValid)
             {
+                int productoId = db.Productos
+                    .Where(x => x.NegocioId == negocioId && x.ProveedorId == producto.ProveedorId)
+                    .Max(x => (int?)x.ProductoId) ?? 0;
+
+                producto.ProductoId = productoId + 1;
+
                 db.Productos.Add(producto);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.NegocioId = new SelectList(db.Proveedores, "NegocioId", "Nombre", producto.NegocioId);
             return View(producto);
         }
 
@@ -71,6 +83,7 @@ namespace AppInventarioWeb.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.NegocioId = new SelectList(db.Proveedores, "NegocioId", "Nombre", producto.NegocioId);
             return View(producto);
         }
 
@@ -79,7 +92,7 @@ namespace AppInventarioWeb.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductoId,Nombre")] Producto producto)
+        public ActionResult Edit([Bind(Include = "NegocioId,ProveedorId,ProductoId,Nombre,Costo,Precio,UnidadNumero,UnidadLetra")] Producto producto)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +100,7 @@ namespace AppInventarioWeb.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.NegocioId = new SelectList(db.Proveedores, "NegocioId", "Nombre", producto.NegocioId);
             return View(producto);
         }
 

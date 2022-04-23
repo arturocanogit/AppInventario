@@ -32,23 +32,23 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Proveedor.Nombre)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Nombre)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Costo)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Precio)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.UnidadNumero)
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Proveedor.Nombre)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nombre)
+                                        </td>
+                                        <td>
+                                            @String.Format("{0:c}", item.Costo)
+                                        </td>
+                                        <td>
+                                            @String.Format("{0:c}", item.Precio)
+                                        </td>
+                                        <td>
+                                            @($"{item.UnidadNumero} {item.Unidad.Abreviatura}")
+                                        </td>
+                                    </tr>
                                     }
 
                                 </tbody>
@@ -75,9 +75,10 @@
     </section>
     <!-- /.content -->
 
+        
 
-
-    <form class="needs-validation" novalidate ng-submit="nuevaAlta();">
+    <form class="needs-validation" novalidate action="Productos/Create" method="post">
+        @Html.AntiForgeryToken()
         <div class="modal fade" id="modal-default">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -90,9 +91,8 @@
                     <div class="modal-body">
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
-                                <label for="validationCustom01">Nombre</label>
-                                <input type="text" class="form-control" id="validationCustom01" required maxlength="64" 
-                                       ng-model="producto.nombre">
+                                <label for="Nombre">Nombre</label>
+                                <input type="text" class="form-control" id="Nombre" name="Nombre" required maxlength="64">
                                 <div class="valid-feedback">
                                     Buen trabajo!
                                 </div>
@@ -101,9 +101,8 @@
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="validationCustom02">Costo</label>
-                                <input type="number" class="form-control" id="validationCustom02" required min="1" max="9999" step="0.1" 
-                                       ng-model="producto.costo">
+                                <label for="Costo">Costo</label>
+                                <input type="number" class="form-control" id="Costo" name="Costo" required min="1" max="9999" step="0.1">
                                 <div class="valid-feedback">
                                     Buen trabajo!
                                 </div>
@@ -112,9 +111,8 @@
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="validationCustom03">Precio</label>
-                                <input type="number" class="form-control" id="validationCustom03" required min="1" max="9999" step="0.1" 
-                                       ng-model="producto.precio">
+                                <label for="Precio">Precio</label>
+                                <input type="number" class="form-control" id="Precio" name="Precio" required min="1" max="9999" step="0.1">
                                 <div class="valid-feedback">
                                     Buen trabajo!
                                 </div>
@@ -125,8 +123,8 @@
                         </div>
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
-                                <label for="validationCustom04">Proveedor</label>
-                                <select class="form-control" id="validationCustom04" required>
+                                <label for="ProveedorId">Proveedor</label>
+                                <select class="form-control" style="width: 100%;" id="ProveedorId" name="ProveedorId" required>
                                     <option value="">Seleccione...</option>
                                     <option ng-repeat="proveedor in proveedores" value="{{proveedor.ProveedorId}}">
                                         {{proveedor.Nombre}}
@@ -140,69 +138,56 @@
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="validationCustom05">Cantidad</label>
-                                <input type="number" class="form-control" id="validationCustom05" required min="1" max="9999" step="0.1" 
-                                       ng-model="producto.cantidad">
+                                <label for="UnidadLetra">Cantidad</label>
+                                <input type="number" class="form-control" id="UnidadLetra" name="UnidadLetra" required min="1" max="9999" step="0.1">
                                 <div class="valid-feedback">
                                     Buen trabajo!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Porfavor ingresa una cantidad valida.
+                                    Porfavor ingresa un cantidad valida.
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="validationCustom06">Unidad</label>
-                                <select class="form-control" id="validationCustom06" required
-                                        ng-model="producto.unidadId">
+                                <label for="UnidadNumero">Unidad</label>
+                                <select class="form-control" style="width: 100%;" id="UnidadNumero" name="UnidadNumero" required>
                                     <option value="">Seleccione...</option>
                                     <option value="1">Lt.</option>
                                     <option value="2">Ml.</option>
                                     <option value="3">Gr.</option>
                                     <option value="4">Kg.</option>
+                                    <option value="5">Pza.</option>
+                                    <option value="6">Pzas.</option>
                                 </select>
                                 <div class="valid-feedback">
                                     Buen trabajo!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Porfavor ingresa una unidad valida.
+                                    Porfavor ingresa un unidad valida.
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
-                                <label for="validationCustom07">Almacen</label>
-                                <select class="form-control" id="validationCustom07" required
-                                        ng-model="producto.almacenId">
-                                    <option value="">Seleccione...</option>
+                                <label for="AlmacenId">Almacen</label>
+                                <select class="form-control" style="width: 100%;" id="AlmacenId" name="AlmacenId" required>
                                     <option value="1">Almacen 1</option>
                                 </select>
-                                <div class="valid-feedback">
-                                    Buen trabajo!
-                                </div>
                                 <div class="invalid-feedback">
-                                    Porfavor ingresa un almacen valido.
+                                    Please provide a valid city.
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="validationCustom08">Slot</label>
-                                <select class="form-control" id="validationCustom08" required
-                                        ng-model="producto.slotId">
-                                    <option value="">Seleccione...</option>
-                                    <option value="1">Almacen 1 / Slot 1</option>
+                                <label for="SlotId">Slot</label>
+                                <select class="form-control" style="width: 100%;" id="SlotId" name="SlotId" required>
+                                    <option>Almacen 1 / Slot 1</option>
                                 </select>
-                                <div class="valid-feedback">
-                                    Buen trabajo!
-                                </div>
                                 <div class="invalid-feedback">
-                                    Porfavor ingresa un slot valido.
+                                    Please provide a valid city.
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
-                    <div class="modal-footer justify-content-between">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
                     </div>
@@ -213,6 +198,7 @@
         </div>
     </form>
     <!-- /.modal -->
+
 
 </div>
 <!-- /.content-wrapper -->
