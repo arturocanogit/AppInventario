@@ -26,7 +26,7 @@
                                         <th>Nombre</th>
                                         <th>Costo</th>
                                         <th>Precio</th>
-                                        <th>Unidad</th>
+                                        <th>Contenido</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,7 +46,7 @@
                                             @String.Format("{0:c}", item.Precio)
                                         </td>
                                         <td>
-                                            @($"{item.UnidadNumero} {item.Unidad.Abreviatura}")
+                                            @($"{item.Contenido} {item.Unidad}")
                                         </td>
                                     </tr>
                                     }
@@ -58,7 +58,7 @@
                                         <th>Nombre</th>
                                         <th>Costo</th>
                                         <th>Precio</th>
-                                        <th>Unidad</th>
+                                        <th>Contenido</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -138,25 +138,25 @@
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="UnidadLetra">Cantidad</label>
-                                <input type="number" class="form-control" id="UnidadLetra" name="UnidadLetra" required min="1" max="9999" step="0.1">
+                                <label for="Contenido">Contenido</label>
+                                <input type="number" class="form-control" id="Contenido" name="Contenido" required min="1" max="9999" step="0.1">
                                 <div class="valid-feedback">
                                     Buen trabajo!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Porfavor ingresa un cantidad valida.
+                                    Porfavor ingresa un contenido valida.
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="UnidadNumero">Unidad</label>
-                                <select class="form-control" style="width: 100%;" id="UnidadNumero" name="UnidadNumero" required>
+                                <label for="Unidad">Unidad</label>
+                                <select class="form-control" style="width: 100%;" id="Unidad" name="Unidad" required>
                                     <option value="">Seleccione...</option>
-                                    <option value="1">Lt.</option>
-                                    <option value="2">Ml.</option>
-                                    <option value="3">Gr.</option>
-                                    <option value="4">Kg.</option>
-                                    <option value="5">Pza.</option>
-                                    <option value="6">Pzas.</option>
+                                    <option value="Lt.">Lt.</option>
+                                    <option value="Ml.">Ml.</option>
+                                    <option value="Gr.">Gr.</option>
+                                    <option value="Kg.">Kg.</option>
+                                    <option value="Pza.">Pza.</option>
+                                    <option value="Pzas.">Pzas.</option>
                                 </select>
                                 <div class="valid-feedback">
                                     Buen trabajo!

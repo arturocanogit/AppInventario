@@ -49,7 +49,7 @@ namespace AppInventarioWeb.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NegocioId,ProveedorId,ProductoId,Nombre,Costo,Precio,UnidadNumero,UnidadLetra")] Producto producto)
+        public ActionResult Create([Bind(Include = "NegocioId,ProveedorId,ProductoId,Nombre,Costo,Precio,Contenido,Unidad")] Producto producto)
         {
             const int negocioId = 1;
             producto.NegocioId = negocioId;

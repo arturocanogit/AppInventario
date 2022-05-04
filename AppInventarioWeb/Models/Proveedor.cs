@@ -8,12 +8,13 @@ using System.Web;
 namespace AppInventarioWeb.Models
 {
     [Table("Proveedores")]
-    public class Proveedor
+    public class Proveedor: Entity
     {
         [Key, Column(Order = 0)]
         public int NegocioId { get; set; }
         [Key, Column(Order = 1)]
         public int ProveedorId { get; set; }
+        [Required, MaxLength(64)]
         public string Nombre { get; set; }
     }
 }
