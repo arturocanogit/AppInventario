@@ -18,4 +18,8 @@
                 }
             });
         }
+        $scope.editarItem = function (idNegocio, idItem) {
+            var element = document.getElementById("example1");
+
+        }
     });

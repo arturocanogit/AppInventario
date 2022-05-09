@@ -27,6 +27,7 @@
                                         <th>Costo</th>
                                         <th>Precio</th>
                                         <th>Contenido</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,6 +49,12 @@
                                         <td>
                                             @($"{item.Contenido} {item.Unidad}")
                                         </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary" ng-click="editarItem(1, 2);">
+                                                <i class="fas fa-pen"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </td>
                                     </tr>
                                     }
 
@@ -59,6 +66,7 @@
                                         <th>Costo</th>
                                         <th>Precio</th>
                                         <th>Contenido</th>
+                                        <th></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -223,4 +231,28 @@
             });
         }, false);
     })();
+
+    $('#example1 tbody').on('click', 'tr', function () {
+        var data = $('#example1')
+            .DataTable()
+            .row(this).data();
+
+        debugger;
+
+        $("#Nombre").val(data[1]);
+
+        //$('#ProveedorId option[value="Coca Cola"]')
+
+        $('#ProveedorId').find(`option[text="${data[0]}"]`);
+
+        //$(`#ProveedorId option:contains(${data[0]})`)
+
+        //$(`#ProveedorId option:eq('${data[0]}')`)
+        //$("#ProveedorId").val(data[0]);
+        $("#Costo").val(data[2].replace('$', ''));
+        $("#Precio").val(data[3].replace('$', ''));
+        $("#Contenido").val(data[4].split(' ')[0]);
+        $("#Unidad").val(data[4].split(' ')[1]);
+        $('#modal-default').modal('show');
+    });
 </script>

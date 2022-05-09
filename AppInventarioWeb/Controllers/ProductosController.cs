@@ -61,6 +61,7 @@ namespace AppInventarioWeb.Controllers
                     .Max(x => (int?)x.ProductoId) ?? 0;
 
                 producto.ProductoId = productoId + 1;
+                producto.FechaAlta = DateTime.Now;
 
                 db.Productos.Add(producto);
                 db.SaveChanges();
