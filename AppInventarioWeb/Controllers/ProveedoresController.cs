@@ -51,6 +51,16 @@ namespace AppInventarioWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                Session["NegocioId"] = 1;
+                int negocioId = (int)Session["NegocioId"];
+                int proveedorId = (db.Proveedores
+                    .Where(x => x.NegocioId == 1).Max(x => (int?)x.ProveedorId) ?? 0) + 1;
+
+                proveedor.NegocioId = (int)Session["NegocioId"];
+                proveedor.ProveedorId = proveedorId;
+                proveedor.FechaAlta = DateTime.Now;
+                proveedor.Activo = true;
+
                 db.Proveedores.Add(proveedor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
