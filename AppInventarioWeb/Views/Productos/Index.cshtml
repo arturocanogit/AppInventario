@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AppInventarioWeb.Models.Producto>
+﻿@model IEnumerable<AppInventarioWeb.Models.Dtos.ProductoDto>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" ng-controller="ProductosController">
@@ -10,63 +10,92 @@
                 <div class="col-12">
                     <div class="card mt-3">
                         <div class="card-header">
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#modal-default">
+                            <button class="btn btn-success" data-toggle="modal" data-target="#modal-default">
                                 <i class="fas fa-plus"></i> Nuevo
                             </button>
-                            <button class="btn btn-success" data-toggle="modal" data-target="#modal-default">
+
+                            <button class="btn btn-primary disabled" ng-click="editarItem(1, 2);">
+                                <i class="fas fa-pen"></i> Editar
+                            </button>
+                            <button class="btn btn-danger disabled">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                            <button class="btn btn-warning" data-toggle="modal" data-target="#modal-default">
                                 <i class="fas fa-upload"></i> Carga masiva
                             </button>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="table" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                         <th>Proveedor</th>
                                         <th>Producto</th>
                                         <th>Costo</th>
                                         <th>Precio</th>
                                         <th>Contenido</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Proveedor.Nombre)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Nombre)
-                                        </td>
-                                        <td>
-                                            @String.Format("{0:c}", item.Costo)
-                                        </td>
-                                        <td>
-                                            @String.Format("{0:c}", item.Precio)
-                                        </td>
-                                        <td>
-                                            @($"{item.Contenido} {item.Unidad}")
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-primary" ng-click="editarItem(1, 2);">
-                                                <i class="fas fa-pen"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProveedorId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProductoId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Costo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Precio)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Contenido)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Unidad)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProveedorNombre)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Nombre)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Costoformat)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PrecioFormat)
+                                            </td>
+                                            <td>
+                                                @($"{item.Contenido} {item.Unidad}")
+                                            </td>
+                                        </tr>
                                     }
 
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                         <th>Proveedor</th>
                                         <th>Producto</th>
                                         <th>Costo</th>
                                         <th>Precio</th>
                                         <th>Contenido</th>
-                                        <th></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -82,8 +111,6 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-
-        
 
     <form class="needs-validation" novalidate action="Productos/Create" method="post">
         @Html.AntiForgeryToken()
@@ -159,12 +186,12 @@
                                 <label for="Unidad">Unidad</label>
                                 <select class="form-control" style="width: 100%;" id="Unidad" name="Unidad" required>
                                     <option value="">Seleccione...</option>
-                                    <option value="Lt.">lt.</option>
-                                    <option value="Ml.">ml.</option>
-                                    <option value="Gr.">gr.</option>
-                                    <option value="Kg.">kg.</option>
-                                    <option value="Pza.">pza.</option>
-                                    <option value="Pzas.">pzas.</option>
+                                    <option value="lt.">lt.</option>
+                                    <option value="ml.">ml.</option>
+                                    <option value="gr.">gr.</option>
+                                    <option value="kg.">kg.</option>
+                                    <option value="pza.">pza.</option>
+                                    <option value="pzas.">pzas.</option>
                                 </select>
                                 <div class="valid-feedback">
                                     Buen trabajo!
@@ -232,27 +259,34 @@
         }, false);
     })();
 
-    $('#example1 tbody').on('click', 'tr', function () {
-        var data = $('#example1')
+    $('#table tbody').on('click', 'tr', function () {
+        var data = $('#table')
             .DataTable()
             .row(this).data();
 
-        debugger;
-
-        $("#Nombre").val(data[1]);
-
-        //$('#ProveedorId option[value="Coca Cola"]')
-
-        $('#ProveedorId').find(`option[text="${data[0]}"]`);
-
-        //$(`#ProveedorId option:contains(${data[0]})`)
-
-        //$(`#ProveedorId option:eq('${data[0]}')`)
-        //$("#ProveedorId").val(data[0]);
-        $("#Costo").val(data[2].replace('$', ''));
-        $("#Precio").val(data[3].replace('$', ''));
-        $("#Contenido").val(data[4].split(' ')[0]);
-        $("#Unidad").val(data[4].split(' ')[1]);
+        $("#modalTitle").html("Editar elemento");
+        $("#ProveedorId").val(data[0]);
+        $("#Nombre").val(data[6]);
+        $("#Costo").val(data[2]);
+        $("#Precio").val(data[3]);
+        $("#Contenido").val(data[4]);
+        $("#Unidad").val(data[5]);
         $('#modal-default').modal('show');
     });
+
+    $(function () {
+        $("#table").DataTable({
+            "columnDefs": [
+                {
+                    "targets": [0,1,2,3,4,5],
+                    "visible": false
+                }
+            ],
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "excel", "pdf"]
+        }).buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)');
+    });
+
 </script>

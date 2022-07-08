@@ -14,8 +14,10 @@ namespace AppInventarioWeb.Models
         [Key, Column(Order = 0)]
         public int NegocioId { get; set; }
         [Key, Column(Order = 1)]
-        public int ProductoId { get; set; }
+        public int ProveedorId { get; set; }
         [Key, Column(Order = 2)]
+        public int ProductoId { get; set; }
+        [Key, Column(Order = 3)]
         public int InventarioId { get; set; }
         public int Cantidad { get; set; }
         public virtual Producto Producto { get; set; }

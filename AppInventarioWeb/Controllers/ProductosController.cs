@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using AppInventarioWeb.Data;
 using AppInventarioWeb.Models;
+using AppInventarioWeb.Models.Dtos;
+using Global;
 
 namespace AppInventarioWeb.Controllers
 {
@@ -18,8 +20,21 @@ namespace AppInventarioWeb.Controllers
         // GET: Productos
         public ActionResult Index()
         {
-            var productos = db.Productos.Include(p => p.Proveedor);
-            return View(productos.ToList());
+            IEnumerable<ProductoDto> productos = db.Productos
+                .Include(x => x.Proveedor)
+                .Select(x => new ProductoDto 
+                {
+                    ProveedorId = x.ProveedorId,
+                    ProductoId = x.ProductoId,
+                    Nombre = x.Nombre,
+                    Costo = x.Costo,
+                    Precio = x.Precio,
+                    Contenido = x.Contenido,
+                    Unidad = x.Unidad,
+                    ProveedorNombre = x.Proveedor.Nombre
+                });
+
+            return View(productos);
         }
 
         // GET: Productos/Details/5
@@ -61,10 +76,19 @@ namespace AppInventarioWeb.Controllers
                     .Max(x => (int?)x.ProductoId) ?? 0;
 
                 producto.ProductoId = productoId + 1;
-                producto.FechaAlta = DateTime.Now;
 
                 db.Productos.Add(producto);
                 db.SaveChanges();
+
+                db.Inventario.Add(new Inventario 
+                {
+                    NegocioId = negocioId,
+                    ProveedorId = producto.ProveedorId,
+                    ProductoId = producto.ProductoId,
+                    Cantidad = 5
+                });
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
