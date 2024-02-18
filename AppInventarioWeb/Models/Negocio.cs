@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace AppInventarioWeb.Models
 {
-    [Table("Inventario")]
-    public class Inventario : Entity
+    [Table("Negocio")]
+    public class Negocio : Entity
     {
         [Key, Column(Order = 0)]
         public int NegocioId { get; set; }
         [Key, Column(Order = 1)]
-        public int InventarioId { get; set; }
-        public int ProductoId { get; set; }
-        public int Cantidad { get; set; }
-        public virtual Producto Producto { get; set; }
+        public string Nombre { get; set; }
     }
 }

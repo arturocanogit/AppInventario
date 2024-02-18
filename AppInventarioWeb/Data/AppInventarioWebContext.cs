@@ -22,6 +22,8 @@ namespace AppInventarioWeb.Data
         public System.Data.Entity.DbSet<AppInventarioWeb.Models.Producto> Productos { get; set; }
         public System.Data.Entity.DbSet<AppInventarioWeb.Models.Proveedor> Proveedores { get; set; }
         public System.Data.Entity.DbSet<AppInventarioWeb.Models.Inventario> Inventario { get; set; }
+        public System.Data.Entity.DbSet<AppInventarioWeb.Models.Negocio> Negocio { get; set; }
+        public System.Data.Entity.DbSet<AppInventarioWeb.Models.Almacen> Almacen { get; set; }
 
     }
 }

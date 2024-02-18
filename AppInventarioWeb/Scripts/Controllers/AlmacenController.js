@@ -1,17 +1,9 @@
 ﻿angular.module('AppInventario', [])
-    .controller('ProductosController', function ($http, $scope) {
+    .controller('AlmacenController', function ($http, $scope) {
         $http.get("api/Proveedores")
             .then(function (response) {
                 // First function handles success
                 $scope.proveedores = response.data;
-            }, function (response) {
-                // Second function handles error
-                $scope.content = "Something went wrong";
-            });
-        $http.get("api/Almacen")
-            .then(function (response) {
-                // First function handles success
-                $scope.almacenes = response.data;
             }, function (response) {
                 // Second function handles error
                 $scope.content = "Something went wrong";

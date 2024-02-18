@@ -139,8 +139,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\AlmacenController.cs" />
     <Compile Include="Controllers\Api\ProveedoresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AlmacenController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
@@ -149,11 +151,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Negocio.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Global.cs" />
     <Compile Include="Models\Inventario.cs" />
     <Compile Include="Models\Dtos\ProductoDto.cs" />
     <Compile Include="Models\Producto.cs" />
+    <Compile Include="Models\Almacen.cs" />
     <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -173,6 +177,7 @@
     <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Controllers\GlobalController.js" />
+    <Content Include="Scripts\Controllers\AlmacenController.js" />
     <Content Include="Scripts\Controllers\InventarioController.js" />
     <Content Include="Scripts\Controllers\ProveedoresController.js" />
     <Content Include="Scripts\Controllers\ProductosController.js" />
@@ -215,6 +220,11 @@
     <Content Include="Views\Inventario\Details.cshtml" />
     <Content Include="Views\Inventario\Edit.cshtml" />
     <Content Include="Views\Inventario\Index.cshtml" />
+    <Content Include="Views\Almacen\Create.cshtml" />
+    <Content Include="Views\Almacen\Delete.cshtml" />
+    <Content Include="Views\Almacen\Details.cshtml" />
+    <Content Include="Views\Almacen\Edit.cshtml" />
+    <Content Include="Views\Almacen\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

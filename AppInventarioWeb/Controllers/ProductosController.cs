@@ -64,7 +64,7 @@ namespace AppInventarioWeb.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NegocioId,ProveedorId,ProductoId,Nombre,Costo,Precio,Contenido,Unidad")] Producto producto)
+        public ActionResult Create(Producto producto)
         {
             const int negocioId = 1;
             producto.NegocioId = negocioId;
@@ -72,7 +72,7 @@ namespace AppInventarioWeb.Controllers
             if (ModelState.IsValid)
             {
                 int productoId = db.Productos
-                    .Where(x => x.NegocioId == negocioId && x.ProveedorId == producto.ProveedorId)
+                    .Where(x => x.NegocioId == negocioId)
                     .Max(x => (int?)x.ProductoId) ?? 0;
 
                 producto.ProductoId = productoId + 1;
@@ -80,13 +80,19 @@ namespace AppInventarioWeb.Controllers
                 db.Productos.Add(producto);
                 db.SaveChanges();
 
-                db.Inventario.Add(new Inventario 
+                var inventario = new Inventario
                 {
                     NegocioId = negocioId,
-                    ProveedorId = producto.ProveedorId,
                     ProductoId = producto.ProductoId,
                     Cantidad = 5
-                });
+                };
+
+                int inventarioId = db.Inventario
+                   .Where(x => x.NegocioId == negocioId)
+                   .Max(x => (int?)x.InventarioId) ?? 0;
+
+                inventario.InventarioId = inventarioId + 1;
+                db.Inventario.Add(inventario);
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
